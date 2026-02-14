@@ -12,13 +12,27 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffe6e6;
+            background-color: #ffe6e6; /* Soft Pink */
             font-family: 'Comic Sans MS', cursive, sans-serif;
             text-align: center;
             overflow: hidden;
             position: relative;
         }
-        /* Floating Hearts Decoration */
+
+        /* Twinkling Stars */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Floating Hearts */
         .heart {
             position: absolute;
             color: #ff4d6d;
@@ -32,20 +46,45 @@
             0% { transform: translateY(100vh) scale(0); opacity: 1; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            z-index: 20;
+            animation: fall 3s linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main Card Container */
         .container {
             background: white;
-            padding: 2rem;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 35px;
+            box-shadow: 0 15px 40px rgba(255, 77, 109, 0.2);
             max-width: 85%;
             position: relative;
             z-index: 10;
-            border: 5px dashed #ffb3c1; /* Cute dashed border */
+            border: 8px solid #fff0f3;
+            outline: 3px dashed #ffb3c1;
+            outline-offset: -12px;
+            animation: pulse 3s infinite;
         }
-        h1 { color: #ff4d6d; font-size: 1.8rem; text-shadow: 1px 1px #fff; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        h1 { color: #ff4d6d; font-size: 1.8rem; text-shadow: 1px 1px #fff; margin-bottom: 10px; }
         .gif-container img {
-            width: 180px;
+            width: 200px;
             border-radius: 20px;
+            margin-bottom: 15px;
+            border: 4px solid #ffeef1;
         }
         .buttons {
             margin-top: 25px;
@@ -63,6 +102,8 @@
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-weight: bold;
         }
         #yesBtn { background-color: #ff4d6d; color: white; }
         #noBtn { background-color: #adb5bd; color: white; }
@@ -78,16 +119,42 @@
 <body>
 
     <script>
+        // Create random twinkling stars
+        for (let i = 0; i < 40; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 4 + 2 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            document.body.appendChild(star);
+        }
+
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = '❤️';
+            heart.innerHTML = ['❤️', '✨', '🌸', '💖'][Math.floor(Math.random() * 4)];
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 2 + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
-        setInterval(createHeart, 400);
+        setInterval(createHeart, 500);
+
+        function createConfetti() {
+            for(let i=0; i<70; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = ['#ff4d6d','#ffb3c1','#ffccd5','#fff','#ffd700'][Math.floor(Math.random()*5)];
+                conf.style.top = '-10px';
+                conf.style.animationDuration = Math.random() * 2 + 1 + 's';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 3000);
+            }
+        }
     </script>
 
     <div class="container">
@@ -131,6 +198,7 @@
         }
 
         function celebrate() {
+            createConfetti();
             document.getElementById('content').style.display = "none";
             document.getElementById('finalMessage').style.display = "block";
             document.getElementById('mainGif').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV5c4Hn9LO/giphy.gif";

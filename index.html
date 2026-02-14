@@ -16,21 +16,39 @@
             font-family: 'Comic Sans MS', cursive, sans-serif;
             text-align: center;
             overflow: hidden;
+            position: relative;
+        }
+        /* Floating Hearts Decoration */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            animation: float 5s infinite ease-in-out;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
         .container {
             background: white;
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            max-width: 90%;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 85%;
+            position: relative;
+            z-index: 10;
+            border: 5px dashed #ffb3c1; /* Cute dashed border */
         }
-        h1 { color: #ff4d6d; font-size: 1.8rem; }
+        h1 { color: #ff4d6d; font-size: 1.8rem; text-shadow: 1px 1px #fff; }
         .gif-container img {
             width: 180px;
-            border-radius: 10px;
+            border-radius: 20px;
         }
         .buttons {
-            margin-top: 20px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,9 +62,10 @@
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        #yesBtn { background-color: #ff4d6d; color: white; z-index: 999; }
-        #noBtn { background-color: #adb5bd; color: white; transition: 0.2s; }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #adb5bd; color: white; }
         #finalMessage {
             line-height: 1.6;
             color: #ff4d6d;
@@ -57,6 +76,19 @@
     </style>
 </head>
 <body>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
 
     <div class="container">
         <div id="content">
@@ -85,18 +117,12 @@
         function moveNo() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
-            
-            // Make "Yes" button bigger
             yesSize += 0.4;
             yesBtn.style.transform = `scale(${yesSize})`;
-            
-            // Change "No" button text
             if(noCount < noPhrases.length) {
                 noBtn.innerText = noPhrases[noCount];
                 noCount++;
             }
-
-            // Move the "No" button randomly
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             noBtn.style.position = "absolute";
@@ -107,7 +133,6 @@
         function celebrate() {
             document.getElementById('content').style.display = "none";
             document.getElementById('finalMessage').style.display = "block";
-            // Celebration GIF
             document.getElementById('mainGif').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV5c4Hn9LO/giphy.gif";
         }
     </script>

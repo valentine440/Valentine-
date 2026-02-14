@@ -19,7 +19,7 @@
             position: relative;
         }
 
-        /* Magical Decorations */
+        /* Decorations */
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--duration) infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
         
@@ -56,7 +56,6 @@
 <body>
 
     <script>
-        // Stars background
         for (let i = 0; i < 40; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -137,7 +136,6 @@
             createConfetti();
             document.getElementById('content').style.display = "none";
             document.getElementById('finalMessage').style.display = "block";
-            // NEW RELIABLE CELEBRATION GIF LINK
             document.getElementById('mainGif').src = "https://media.tenor.com/97y2-uK6_m8AAAAi/cute-love.gif";
         }
     </script>

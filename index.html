@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -45,4 +45,70 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        #yesBtn { background-color: #ff4
+        #yesBtn { background-color: #ff4d6d; color: white; z-index: 999; }
+        #noBtn { background-color: #adb5bd; color: white; transition: 0.2s; }
+        #finalMessage {
+            line-height: 1.6;
+            color: #ff4d6d;
+            font-weight: bold;
+            display: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="content">
+            <div class="gif-container">
+                <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KZTv6E3f0y9mH60O0/giphy.gif" alt="Cute gif">
+            </div>
+            <h1 id="question">Will you be my Valentine, Shreya? 💖</h1>
+            <p id="extraText">Plss plss plss! ✨</p>
+
+            <div class="buttons">
+                <button id="yesBtn" onclick="celebrate()">Yes!</button>
+                <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+            </div>
+        </div>
+        <div id="finalMessage">
+            <h1>YAYYY! ❤️</h1>
+            <p>You are my everything. The most purest soul and the most loving girl one can have in their life. I love you forever ♾️</p>
+        </div>
+    </div>
+
+    <script>
+        let yesSize = 1;
+        const noPhrases = ["Are you sure?", "Really??", "Think again!", "Shreya, pleaseee 🥺", "I'll be sad...", "Don't do this!"];
+        let noCount = 0;
+
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            
+            // Make "Yes" button bigger
+            yesSize += 0.4;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            
+            // Change "No" button text
+            if(noCount < noPhrases.length) {
+                noBtn.innerText = noPhrases[noCount];
+                noCount++;
+            }
+
+            // Move the "No" button randomly
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        function celebrate() {
+            document.getElementById('content').style.display = "none";
+            document.getElementById('finalMessage').style.display = "block";
+            document.getElementById('mainGif').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV5c4Hn9LO/giphy.gif";
+        }
+    </script>
+</body>
+</html>

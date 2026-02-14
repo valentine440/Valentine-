@@ -18,14 +18,11 @@
             overflow: hidden;
             position: relative;
         }
-
-        /* Decorations */
+        /* Background Decorations */
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle var(--duration) infinite; }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
-        
         .heart { position: absolute; color: #ff4d6d; font-size: 20px; animation: float 5s infinite ease-in-out; opacity: 0.6; z-index: 1; }
         @keyframes float { 0% { transform: translateY(100vh) scale(0); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
-
         .confetti { position: absolute; width: 8px; height: 8px; z-index: 20; animation: fall 3s linear forwards; }
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
 
@@ -41,20 +38,17 @@
             outline: 3px dashed #ffb3c1;
             outline-offset: -12px;
         }
-
         h1 { color: #ff4d6d; font-size: 1.8rem; text-shadow: 1px 1px #fff; }
+        .gif-container { min-height: 200px; display: flex; align-items: center; justify-content: center; }
         .gif-container img { width: 220px; border-radius: 20px; margin-bottom: 15px; }
-        
         .buttons { margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; }
         button { padding: 12px 28px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; font-weight: bold; }
         #yesBtn { background-color: #ff4d6d; color: white; }
         #noBtn { background-color: #adb5bd; color: white; }
-        
         #finalMessage { line-height: 1.6; color: #ff4d6d; font-weight: bold; display: none; padding: 10px; }
     </style>
 </head>
 <body>
-
     <script>
         for (let i = 0; i < 40; i++) {
             const star = document.createElement('div');
@@ -66,7 +60,6 @@
             star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
             document.body.appendChild(star);
         }
-
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -77,7 +70,6 @@
             setTimeout(() => heart.remove(), 5000);
         }
         setInterval(createHeart, 500);
-
         function createConfetti() {
             for(let i=0; i<70; i++) {
                 const conf = document.createElement('div');
@@ -91,15 +83,13 @@
             }
         }
     </script>
-
     <div class="container">
         <div id="content">
             <div class="gif-container">
-                <img id="mainGif" src="https://media.tenor.com/9vD_vF08Y7IAAAAi/peach-goma.gif" alt="Cute GIF">
+                <img id="mainGif" src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574340537/T_9_T_T.gif" alt="Cute GIF">
             </div>
             <h1 id="question">Will you be my Valentine, Shreya? 💖</h1>
             <p id="extraText">Plss plss plss! ✨</p>
-
             <div class="buttons">
                 <button id="yesBtn" onclick="celebrate()">Yes!</button>
                 <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
@@ -110,12 +100,10 @@
             <p>You are my everything. The most purest soul and the most loving girl one can have in their life. I love you forever ♾️</p>
         </div>
     </div>
-
     <script>
         let yesSize = 1;
         const noPhrases = ["Are you sure?", "Really??", "Think again!", "Shreya, pleaseee 🥺", "I'll be sad...", "Don't do this!"];
         let noCount = 0;
-
         function moveNo() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
@@ -131,12 +119,12 @@
             noBtn.style.left = x + "px";
             noBtn.style.top = y + "px";
         }
-
         function celebrate() {
             createConfetti();
             document.getElementById('content').style.display = "none";
             document.getElementById('finalMessage').style.display = "block";
-            document.getElementById('mainGif').src = "https://media.tenor.com/97y2-uK6_m8AAAAi/cute-love.gif";
+            // NEW RELIABLE CELEBRATION GIF
+            document.getElementById('mainGif').src = "https://res.cloudinary.com/dxfq3iotg/image/upload/v1574340701/giphy_2.gif";
         }
     </script>
 </body>
